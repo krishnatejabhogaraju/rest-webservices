@@ -6,7 +6,7 @@ import net.bytebuddy.implementation.bind.annotation.Super;
 
 public class User {
 
-	private int id1;
+	private int id;
 	private String name;
 	private Date dob;
 
