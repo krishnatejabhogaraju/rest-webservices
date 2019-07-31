@@ -2,7 +2,7 @@ package com.spring.rest.webservices.bean;
 
 public class HelloWorldBean {
 
-	private String message1;
+	private String message;
 
 	public HelloWorldBean(String message) {
 		this.message = message;
