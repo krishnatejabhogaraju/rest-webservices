@@ -5,6 +5,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,13 +37,20 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/getUser/{id}")
-	public User getUser(@PathVariable int id) {
+	public Resource<User> getUser(@PathVariable int id) {
 
 		User user = userDaoService.getUser(id);
 
 		if (user == null)
 			throw new UserNotFoundException("id-" + id);
-		return user;
+
+		Resource<User> resource = new Resource<User>(user);
+
+		ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getAllUsers());
+
+		resource.add(linkTo.withRel("all-users"));
+
+		return resource;
 	}
 
 }
