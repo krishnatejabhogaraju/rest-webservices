@@ -2,12 +2,17 @@ package com.spring.rest.webservices.model;
 
 import java.util.Date;
 
-import net.bytebuddy.implementation.bind.annotation.Super;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 public class User {
 
 	private int id;
+	
+	@Size(min = 2,message = "Name should atleast have two characters")
 	private String name;
+	
+	@Past
 	private Date dob;
 
 	public int getId() {
