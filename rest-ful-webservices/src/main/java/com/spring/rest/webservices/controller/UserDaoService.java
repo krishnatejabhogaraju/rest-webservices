@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.spring.rest.webservices.model.User;
 
-
 //23
 @Component
 public class UserDaoService {
@@ -40,7 +39,7 @@ public class UserDaoService {
 
 	public User getUser(int id) {
 
-		User user1 = new User();
+		User user1 = null;
 
 		for (User user : users) {
 
@@ -48,8 +47,9 @@ public class UserDaoService {
 
 				user1 = user;
 
-			}
+				return user1;
 
+			}
 		}
 
 		return user1;
