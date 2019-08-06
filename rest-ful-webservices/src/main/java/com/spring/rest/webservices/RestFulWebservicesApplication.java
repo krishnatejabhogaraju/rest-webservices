@@ -19,21 +19,15 @@ public class RestFulWebservicesApplication {
 	@Bean
 	public SessionLocaleResolver localeResolver() {
 		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-
 		localeResolver.setDefaultLocale(Locale.US);
-
 		return localeResolver;
 	}
 
 	@Bean
 	public ResourceBundleMessageSource messageSource() {
-
 		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-
 		resourceBundleMessageSource.setBasename("message");
-
 		return resourceBundleMessageSource;
-
 	}
 
 }
