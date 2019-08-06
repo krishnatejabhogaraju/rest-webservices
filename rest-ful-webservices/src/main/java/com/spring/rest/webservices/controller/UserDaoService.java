@@ -18,7 +18,7 @@ public class UserDaoService {
 
 	static {
 
-		users.add(new User(1, "Krishna", new Date(),"234556"));
+		users.add(new User(1, "Krishna", new Date(),"234556","Hyderabad"));
 
 	}
 
