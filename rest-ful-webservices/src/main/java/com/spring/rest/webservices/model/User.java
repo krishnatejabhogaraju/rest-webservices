@@ -1,10 +1,12 @@
 package com.spring.rest.webservices.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -34,6 +36,17 @@ public class User {
 	private String password;
 
 	private String city;
+
+	@OneToMany(mappedBy = "user")
+	private List<Post> post;
+
+	public List<Post> getPost() {
+		return post;
+	}
+
+	public void setPost(List<Post> post) {
+		this.post = post;
+	}
 
 	public int getId() {
 		return id;

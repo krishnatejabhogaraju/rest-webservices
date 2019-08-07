@@ -1,6 +1,7 @@
 package com.spring.rest.webservices;
 
 import java.util.Arrays;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,5 +31,6 @@ public class SwaggerConfig {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(DEFAULT_API_INFO).produces(DEFAULT_PRODUCES_AND_CONSUMES)
 				.consumes(DEFAULT_PRODUCES_AND_CONSUMES);
 	}
+	
 
 }
