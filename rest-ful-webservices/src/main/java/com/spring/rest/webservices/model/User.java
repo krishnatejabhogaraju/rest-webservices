@@ -2,6 +2,9 @@ package com.spring.rest.webservices.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -13,8 +16,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "User Details")
 @JsonFilter("UserFilter")
+@Entity
 public class User {
 
+	@Id
+	@GeneratedValue
 	private int id;
 
 	@Size(min = 2, message = "Name should atleast have two characters")
@@ -25,7 +31,6 @@ public class User {
 	@ApiModelProperty(notes = "Only past Date")
 	private Date dob;
 
-	@JsonIgnore
 	private String password;
 
 	private String city;

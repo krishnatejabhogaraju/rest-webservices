@@ -1,7 +1,5 @@
 package com.spring.rest.webservices.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,9 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.spring.rest.webservices.exception.UserNotFoundException;
+import com.spring.rest.webservices.filters.FilterClass;
 import com.spring.rest.webservices.model.User;
+import com.spring.rest.webservices.service.UserDaoService;
 
 @RestController
 public class UserController {
@@ -28,9 +28,12 @@ public class UserController {
 	@Autowired
 	public UserDaoService userDaoService;
 
+	@Autowired
+	private FilterClass filterClass;
+
 	@GetMapping(path = "/getAllUsers")
-	public List<User> getAllUsers() {
-		return userDaoService.getAllUsers();
+	public MappingJacksonValue getAllUsers() {
+		return filterClass.getUsersFilter(userDaoService.getAllUsers());
 	}
 
 	@PostMapping(path = "/saveUser")
@@ -40,7 +43,7 @@ public class UserController {
 
 	}
 
-	@GetMapping(path = "/getUser/{id}")
+	@GetMapping(path = "/getUserHateoas/{id}")
 	public Resource<User> getUser(@PathVariable int id) {
 
 		User user = userDaoService.getUser(id);
@@ -65,7 +68,7 @@ public class UserController {
 		return resource;
 	}
 
-	@GetMapping(path = "/getUserFiltered/{id}")
+	@GetMapping(path = "/getUser/{id}")
 	public MappingJacksonValue getUserFiltered(@PathVariable int id) {
 
 		User user = userDaoService.getUser(id);
@@ -73,15 +76,7 @@ public class UserController {
 		if (user == null)
 			throw new UserNotFoundException("id-" + id);
 
-		SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "name", "dob");
-
-		FilterProvider filters = new SimpleFilterProvider().addFilter("UserFilter", filter);
-
-		MappingJacksonValue mapping = new MappingJacksonValue(user);
-
-		mapping.setFilters(filters);
-
-		return mapping;
+		return filterClass.getUserFilter(user);
 	}
 
 }
