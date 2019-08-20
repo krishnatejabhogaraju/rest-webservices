@@ -23,6 +23,16 @@ public class PostDaoService {
 	public List<Post> getAllPosts(int id) {
 		Optional<User> user = userRepository.findById(id);
 
+		System.out.println("user===>>" + user.get().getPost());
+
+		List<Post> posts = user.get().getPost();
+
+		for (Post p : posts) {
+
+			System.out.println(p.getUser());
+
+		}
+
 		if (user.isPresent()) {
 			return user.get().getPost();
 		} else {

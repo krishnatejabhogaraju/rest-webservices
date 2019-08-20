@@ -1,18 +1,19 @@
 package com.spring.rest.webservices.model;
 
 import javax.persistence.Entity;
+
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
 import io.swagger.annotations.ApiModel;
 
-@Entity
 @ApiModel(description = "Post Details")
+@JsonFilter("PostFilter")
+@Entity
 public class Post {
 
 	@Id
@@ -22,7 +23,6 @@ public class Post {
 	private String description;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnore
 	private User user;
 
 	public int getId() {
@@ -47,6 +47,10 @@ public class Post {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Post() {
+
 	}
 
 	public Post(int id, String description) {
